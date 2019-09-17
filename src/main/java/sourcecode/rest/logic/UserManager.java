@@ -32,4 +32,8 @@ public class UserManager {
 
         return users;
     }
+
+    public User addUser(String username, String firstname, String lastname, String profileImage) {
+        return userRepository.addUser(username, firstname, lastname, profileImage);
+    }
 }

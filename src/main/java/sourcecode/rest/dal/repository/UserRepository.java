@@ -22,4 +22,8 @@ public class UserRepository {
     public User getUserByUsername(String username) {
         return userContext.getUserByUsername(username);
     }
+
+    public User addUser(String username, String firstname, String lastname, String profileImage) {
+        return userContext.addUser(username, firstname, lastname, profileImage);
+    }
 }

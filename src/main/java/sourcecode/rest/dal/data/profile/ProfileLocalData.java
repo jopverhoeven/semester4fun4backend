@@ -70,4 +70,15 @@ public class ProfileLocalData implements ProfileContext {
         return returnProfile;
 
     }
+
+    @Override
+    public void addProfile(UUID userId) {
+        ProfileDAL profile = new ProfileDAL(
+                UUID.randomUUID(),
+                userId,
+                new Privacy(true)
+        );
+
+        profiles.add(profile);
+    }
 }

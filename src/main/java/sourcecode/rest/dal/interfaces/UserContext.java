@@ -11,4 +11,5 @@ public interface UserContext {
     List<User> getUserByName(String name);
     User getUserByUsername(String username);
 
+    User addUser(String username, String firstname, String lastname, String profileImage);
 }

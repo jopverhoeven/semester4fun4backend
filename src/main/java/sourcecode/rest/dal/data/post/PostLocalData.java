@@ -50,8 +50,17 @@ public class PostLocalData implements PostContext {
                 new GregorianCalendar(2019, Calendar.SEPTEMBER, 8, 12, 00, 00).getTime()
         );
 
+        PostDAL post5 = new PostDAL(
+                UUID.fromString("b6c09b59-4697-4368-b5fe-4ded39d1b20f"),
+                "Post1",
+                "https://www.paradijsvogelsmagazine.nl/wp-content/uploads/2016/12/Schermafdruk-2016-12-15-14.13.25-1110x600.png",
+                UUID.fromString("a96a8b4a-725f-4078-a957-3de1292d35d5"),
+                new ArrayList<UUID>(),
+                new GregorianCalendar(2019, Calendar.SEPTEMBER, 9, 12, 00, 00).getTime()
+        );
 
-        posts.addAll(Arrays.asList(post1, post2, post3, post4));
+
+        posts.addAll(Arrays.asList(post1, post2, post3, post4, post5));
     }
 
 

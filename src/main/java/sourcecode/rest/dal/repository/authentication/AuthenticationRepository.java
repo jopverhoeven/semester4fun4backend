@@ -13,4 +13,7 @@ public class AuthenticationRepository {
         return authContext.login(userId, password);
     }
 
+    public void register(UUID userId, String password) {
+        authContext.register(userId, password);
+    }
 }

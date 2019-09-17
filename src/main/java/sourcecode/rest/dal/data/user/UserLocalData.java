@@ -87,4 +87,19 @@ public class UserLocalData implements UserContext {
 
         return returnUser;
     }
+
+    @Override
+    public User addUser(String username, String firstname, String lastname, String profileImage) {
+        User user = new User(
+                UUID.randomUUID(),
+                firstname,
+                lastname,
+                username,
+                profileImage
+        );
+
+        users.add(user);
+
+        return user;
+    }
 }

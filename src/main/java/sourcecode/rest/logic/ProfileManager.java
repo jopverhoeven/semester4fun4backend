@@ -8,6 +8,7 @@ import sourcecode.rest.dal.repository.ProfileRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ProfileManager {
 
@@ -38,4 +39,7 @@ public class ProfileManager {
         return returnProfile;
     }
 
+    public void addProfile(UUID userId) {
+        profileRepository.addProfile(userId);
+    }
 }

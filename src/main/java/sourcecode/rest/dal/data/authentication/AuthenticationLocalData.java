@@ -33,4 +33,9 @@ public class AuthenticationLocalData implements AuthenticationContext {
 
         return false;
     }
+
+    @Override
+    public void register(UUID userId, String password) {
+        userPassword.put(userId, password);
+    }
 }
