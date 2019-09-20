@@ -26,6 +26,7 @@
         <property name="hibernate.dbcp.maxWaitMillis">-1</property>
         <mapping class="sourcecode.models.dal.post.CommentDAL"/>
         <mapping class="sourcecode.models.dal.post.PostDAL"/>
+        <mapping class="sourcecode.models.dal.user.UserDAL"/>
         <mapping class="sourcecode.models.dal.profile.ProfileDAL"/>
 
     </session-factory>
