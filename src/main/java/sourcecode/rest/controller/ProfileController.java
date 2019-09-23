@@ -1,8 +1,11 @@
 package sourcecode.rest.controller;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import sourcecode.models.other.error.ApiError;
+import sourcecode.models.other.error.ApiErrorMessage;
 import sourcecode.models.other.profile.Profile;
 import sourcecode.rest.logic.ProfileManager;
+import sourcecode.servers.rest.RestApi;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,10 +29,9 @@ public class ProfileController {
         Profile profile = profileManager.getProfileByName(name);
 
         if (profile == null)
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        else
-            return Response.ok().entity(objectMapper.writeValueAsString(profile)).build();
+            return RestApi.getResponseWithEntity(Response.Status.BAD_REQUEST, ApiError.getError(ApiErrorMessage.USER_NOT_FOUND));
 
+        return RestApi.getResponseWithEntity(Response.Status.OK, profile);
     }
 
 }
