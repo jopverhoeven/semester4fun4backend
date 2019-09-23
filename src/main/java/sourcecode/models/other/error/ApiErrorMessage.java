@@ -7,7 +7,8 @@ public enum ApiErrorMessage {
     ID_INCORRECT("ID_INCORRECT", "Object met opgegeven ID bestaat niet."),
     REGISTER_USER_ALREADY_EXISTS("REGISTER_USER_ALREADY_EXISTS", "Deze gebruikersnaam is al in gebruik."),
     REGISTER_PASSWORD_NOT_LONG_ENOUGH("REGISTER_PASSWORD_NOT_LONG_ENOUGH", "Het wachtwoord moet minimaal 8 tekens lang zijn."),
-    ;
+    USER_NOT_FOUND("USER_NOT_FOUND", "Deze gebruiker bestaat niet."),
+    PASS_INCORRECT("PASS_INCORRECT", "Het wachtwoord is onjuist.");
 
     public final String errorMessage;
     public final String clientMessage;

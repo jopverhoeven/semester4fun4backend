@@ -22,7 +22,7 @@ public class AuthenticationManager {
         User user = userManager.getUserByUsername(username);
 
         if (user == null){
-            return new AuthenticationModel(null, "USER_NOT_FOUND", "Deze gebruiker bestaat niet.");
+            return new AuthenticationModel(null, ApiError.getError(ApiErrorMessage.USER_NOT_FOUND));
         }
 
         UUID userId = user.getUserId();
@@ -30,7 +30,7 @@ public class AuthenticationManager {
         boolean loginSuccessful = authRepo.login(userId, password);
 
         if (loginSuccessful == false){
-            return new AuthenticationModel(null, "PASS_INCORRECT", "Het wachtwoord is onjuist.");
+            return new AuthenticationModel(null, ApiError.getError(ApiErrorMessage.PASS_INCORRECT));
         }
 
         UUID loginToken = tokenRepository.addNewUser(userId);
