@@ -11,6 +11,12 @@ public class UserRepository {
 
     private static UserContext userContext = new UserLocalData();
 
+    public UserRepository() {}
+
+    public UserRepository(UserContext context) {
+        UserRepository.userContext = context;
+    }
+
     public User getUserById(UUID id){
         return userContext.getUserById(id);
     }
@@ -25,5 +31,9 @@ public class UserRepository {
 
     public User addUser(String username, String firstname, String lastname, String profileImage) {
         return userContext.addUser(username, firstname, lastname, profileImage);
+    }
+
+    public void updateUserGeneral(UUID userId, String firstname, String lastname) {
+        userContext.updateUserGeneral(userId, firstname, lastname);
     }
 }

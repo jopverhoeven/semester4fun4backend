@@ -14,10 +14,12 @@ public class Profile {
     private List<User> following;
     private List<Post> profilePosts;
     private Privacy profilePrivacy;
+    private String profileStatus;
 
     public Profile(){}
 
-    public Profile(UUID profileId, User user, List<User> followers, List<User> following, List<Post> profilePosts, Privacy privacy){
+    public Profile(UUID profileId, User user, List<User> followers, List<User> following, List<Post> profilePosts, Privacy privacy, String profileStatus){
+        this.profileStatus = profileStatus;
         setProfileId(profileId);
         setProfileUser(user);
         setFollowers(followers);
@@ -72,5 +74,13 @@ public class Profile {
 
     public void setProfilePrivacy(Privacy profilePrivacy) {
         this.profilePrivacy = profilePrivacy;
+    }
+
+    public String getProfileStatus() {
+        return profileStatus;
+    }
+
+    public void setProfileStatus(String profileStatus) {
+        this.profileStatus = profileStatus;
     }
 }

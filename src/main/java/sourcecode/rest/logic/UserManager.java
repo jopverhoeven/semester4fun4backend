@@ -11,6 +11,12 @@ public class UserManager {
 
     private UserRepository userRepository = new UserRepository();
 
+    public UserManager() {}
+
+    public UserManager(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public User getUser(UUID uuid){
         return userRepository.getUserById(uuid);
     }
@@ -35,5 +41,9 @@ public class UserManager {
 
     public User addUser(String username, String firstname, String lastname, String profileImage) {
         return userRepository.addUser(username, firstname, lastname, profileImage);
+    }
+
+    public void updateUserGeneral(User user, String firstname, String lastname) {
+        userRepository.updateUserGeneral(user.getUserId(), firstname, lastname);
     }
 }

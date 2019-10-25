@@ -3,9 +3,11 @@ package sourcecode.rest.controller;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import sourcecode.models.controller.comment.AddCommentSubmitModel;
+import sourcecode.models.controller.post.AddPostSubmitModel;
 import sourcecode.models.controller.post.LikePostReturnModel;
 import sourcecode.models.controller.post.LikePostSubmitModel;
 import sourcecode.models.manager.comment.AddCommentModel;
+import sourcecode.models.manager.post.AddPostModel;
 import sourcecode.models.manager.post.LikePostModel;
 import sourcecode.models.other.error.ApiError;
 import sourcecode.models.other.error.ApiErrorMessage;
@@ -110,6 +112,36 @@ public class PostController {
         }
 
         return RestApi.getResponseWithEntity(Response.Status.OK, returnModel);
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("add")
+    public Response addPost(String content) {
+        AddPostSubmitModel submitModel;
+
+        try {
+            submitModel = objectMapper.readValue(content, AddPostSubmitModel.class);
+        } catch (IOException e) {
+            return RestApi.getResponseWithEntity(Response.Status.BAD_REQUEST, ApiError.getError(ApiErrorMessage.MODEL_INCORRECT));
+        }
+
+        UUID token = submitModel.getToken();
+
+        User user = authManager.loginWithToken(token);
+
+        if (user == null) {
+            return RestApi.getResponseWithEntity(Response.Status.FORBIDDEN, ApiError.getError(ApiErrorMessage.TOKEN_INCORRECT));
+        }
+
+        AddPostModel addPostModel = postManager.addPost(user, submitModel.getImage(), submitModel.getDescription());
+
+        if (addPostModel.getApiError() != null) {
+            return RestApi.getResponseWithEntity(Response.Status.BAD_REQUEST, addPostModel.getApiError());
+        }
+
+        return RestApi.getResponseWithEntity(Response.Status.OK, addPostModel);
     }
 
     @POST

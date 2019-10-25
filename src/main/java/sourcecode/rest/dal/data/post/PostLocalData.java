@@ -1,6 +1,7 @@
 package sourcecode.rest.dal.data.post;
 
 import sourcecode.models.dal.post.PostDAL;
+import sourcecode.models.other.user.User;
 import sourcecode.rest.dal.interfaces.PostContext;
 
 import java.util.*;
@@ -107,6 +108,7 @@ public class PostLocalData implements PostContext {
     @Override
     public void addLike(UUID postId, UUID userId) {
         PostDAL postDAL = getPostById(postId);
+
         postDAL.getLikes().add(userId);
     }
 
@@ -119,6 +121,26 @@ public class PostLocalData implements PostContext {
     @Override
     public List<UUID> getLikes(UUID postId) {
         PostDAL postDAL = getPostById(postId);
-        return postDAL.getLikes();
+        List<UUID> likes = new ArrayList<>();
+
+        for (UUID uuid : postDAL.getLikes()) {
+            likes.add(uuid);
+        }
+
+        return likes;
+    }
+
+    @Override
+    public void addPost(User user, String image, String description) {
+        PostDAL newPost = new PostDAL(
+                UUID.randomUUID(),
+                description,
+                image,
+                user.getUserId(),
+                new ArrayList<UUID>(),
+                new Date()
+        );
+
+        posts.add(newPost);
     }
 }

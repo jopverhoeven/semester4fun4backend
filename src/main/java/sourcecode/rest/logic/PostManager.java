@@ -1,6 +1,7 @@
 package sourcecode.rest.logic;
 
 import sourcecode.models.dal.post.PostDAL;
+import sourcecode.models.manager.post.AddPostModel;
 import sourcecode.models.manager.post.LikePostModel;
 import sourcecode.models.other.error.ApiError;
 import sourcecode.models.other.error.ApiErrorMessage;
@@ -20,6 +21,12 @@ public class PostManager {
     private static UserManager userManager = new UserManager();
     private static CommentManager commentManager = new CommentManager();
 
+    public PostManager() {}
+
+    public PostManager(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
     public Post getPostById(UUID postId){
         PostDAL postDAL = postRepository.getPostById(postId);
 
@@ -29,13 +36,24 @@ public class PostManager {
     public List<Post> getPostByUser(UUID userId){
 
         List<PostDAL> postDALS = postRepository.getPostsFromUser(userId);
+        List<Post> posts = convertMultiplePostDALtoPost(postDALS);
 
-        return convertMultiplePostDALtoPost(postDALS);
+        posts = sortPostsByDate(posts);
+
+
+        return posts;
 
     }
 
     public List<Post> getPosts(){
         return convertMultiplePostDALtoPost(postRepository.getPosts());
+    }
+
+    public List<Post> sortPostsByDate(List<Post> list) {
+        Collections.sort(list);
+        Collections.reverse(list);
+
+        return list;
     }
 
     public List<Post> getPostsSortedByDate(){
@@ -81,8 +99,8 @@ public class PostManager {
 
         List<UUID> likes = postDAL.getLikes();
         List<User> userLikes = new ArrayList<>();
-        for(UUID liker : likes){
-            userLikes.add(userManager.getUser(liker));
+        for(UUID uuid : likes){
+            userLikes.add(userManager.getUser(uuid));
         }
 
 
@@ -109,5 +127,17 @@ public class PostManager {
         }
 
         return returnPosts;
+    }
+
+    public AddPostModel addPost(User user, String image, String description) {
+        AddPostModel addPostModel = new AddPostModel();
+
+        if (image.isEmpty()) {
+            addPostModel.setApiError(ApiError.getError(ApiErrorMessage.NEWPOST_IMAGE_INCORRECT));
+        }
+
+        postRepository.addPost(user, image, description);
+
+        return addPostModel;
     }
 }

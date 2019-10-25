@@ -8,7 +8,8 @@ public enum ApiErrorMessage {
     REGISTER_USER_ALREADY_EXISTS("REGISTER_USER_ALREADY_EXISTS", "Deze gebruikersnaam is al in gebruik."),
     REGISTER_PASSWORD_NOT_LONG_ENOUGH("REGISTER_PASSWORD_NOT_LONG_ENOUGH", "Het wachtwoord moet minimaal 8 tekens lang zijn."),
     USER_NOT_FOUND("USER_NOT_FOUND", "Deze gebruiker bestaat niet."),
-    PASS_INCORRECT("PASS_INCORRECT", "Het wachtwoord is onjuist.");
+    PASS_INCORRECT("PASS_INCORRECT", "Het wachtwoord is onjuist."),
+    NEWPOST_IMAGE_INCORRECT("NEWPOST_IMAGE_INCORRECT", "De bijgevoegde afbeelding is niet juist.");
 
     public final String errorMessage;
     public final String clientMessage;

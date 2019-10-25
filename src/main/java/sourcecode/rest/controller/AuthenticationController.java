@@ -38,10 +38,10 @@ public class AuthenticationController {
         AuthenticationReturnModel returnModel = new AuthenticationReturnModel(authModel.getUuid(), authModel.getApiError());
 
         if (authModel.getUuid() == null){
-            return Response.status(Response.Status.FORBIDDEN).entity(objectMapper.writeValueAsString(returnModel.getApiError())).build();
+            return RestApi.getResponseWithEntity(Response.Status.FORBIDDEN, authModel.getApiError());
         }
 
-        return Response.ok().entity(objectMapper.writeValueAsString(returnModel)).build();
+        return RestApi.getResponseWithEntity(Response.Status.OK, returnModel    );
     }
 
     @POST

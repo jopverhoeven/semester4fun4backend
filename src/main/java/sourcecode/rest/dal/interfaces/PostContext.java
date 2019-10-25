@@ -1,6 +1,7 @@
 package sourcecode.rest.dal.interfaces;
 
 import sourcecode.models.dal.post.PostDAL;
+import sourcecode.models.other.user.User;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,4 +21,6 @@ public interface PostContext {
     void removeLike(UUID postId, UUID userId);
 
     List<UUID> getLikes(UUID postId);
+
+    void addPost(User user, String image, String description);
 }

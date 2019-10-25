@@ -1,21 +1,49 @@
 package sourcecode.models.dal.post;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.util.*;
+
+@Entity
+@Table(name = "post")
 public class PostDAL {
 
+    @Id
+    @GeneratedValue
+    @Type(type = "uuid-char")
+    @Column(name = "postId", length = 36)
     private UUID postId;
+
+    @Column(name = "postDescription")
     private String postDescription;
+
+    @Column(name = "imageContent")
     private String imageContent;
+
+    @Type(type = "uuid-char")
+    @Column(name = "userId", length = 36)
     private UUID userId;
-    private List<UUID> likes;
+
+    @Transient
+    private List<UUID> likes = new ArrayList<>();
+
+    @Column(name = "postDate")
     private Date postDate;
 
-    public PostDAL(){}
+    public PostDAL() {
+    }
 
-    public PostDAL(UUID postId, String postDescription, String imageContent, UUID userId,  List<UUID> likes, Date postDate){
+    public PostDAL(UUID postId, String postDescription, String imageContent, UUID userId, Date postDate) {
+        setPostId(postId);
+        setPostDescription(postDescription);
+        setImageContent(imageContent);
+        setUserId(userId);
+        setPostDate(postDate);
+    }
+
+    public PostDAL(UUID postId, String postDescription, String imageContent, UUID userId, List<UUID> likes, Date postDate) {
         setPostId(postId);
         setPostDescription(postDescription);
         setImageContent(imageContent);
@@ -57,10 +85,6 @@ public class PostDAL {
         this.userId = userId;
     }
 
-    public List<UUID> getLikes() {
-        return likes;
-    }
-
     public void setLikes(List<UUID> likes) {
         this.likes = likes;
     }
@@ -72,4 +96,21 @@ public class PostDAL {
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
     }
+
+    public List<UUID> getLikes() {
+        return likes;
+    }
+
+    public void addLikes(List<LikeDAL> likeDALS) {
+        for(LikeDAL likeDAL : likeDALS) {
+            this.likes.add(likeDAL.getUserId());
+        }
+    }
+
+
+    @Override
+    public String toString() {
+        return getPostId() + " " + getPostDescription();
+    }
+
 }

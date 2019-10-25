@@ -1,5 +1,6 @@
 package sourcecode.util;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -9,6 +10,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateUtil {
     private static StandardServiceRegistry registry;
     private static SessionFactory sessionFactory;
+
+    public static Session getSession() {
+        return getSessionFactory().openSession();
+    }
 
     public static SessionFactory getSessionFactory(){
         if (sessionFactory == null){

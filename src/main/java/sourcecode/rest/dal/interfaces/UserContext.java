@@ -12,4 +12,6 @@ public interface UserContext {
     User getUserByUsername(String username);
 
     User addUser(String username, String firstname, String lastname, String profileImage);
+
+    void updateUserGeneral(UUID userId, String firstname, String lastname);
 }

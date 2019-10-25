@@ -102,4 +102,12 @@ public class UserLocalData implements UserContext {
 
         return user;
     }
+
+    @Override
+    public void updateUserGeneral(UUID userId, String firstname, String lastname) {
+        User user = getUserById(userId);
+
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+    }
 }
