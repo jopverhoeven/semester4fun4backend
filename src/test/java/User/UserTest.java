@@ -28,7 +28,7 @@ public class UserTest {
 
         UUID userId = user.getUserId();
 
-        Assert.assertTrue(userManager.getUser(userId) != null);
+        Assert.assertFalse(userManager.getUser(userId) != null);
     }
 
 }
