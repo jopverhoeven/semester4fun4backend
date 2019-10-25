@@ -136,7 +136,11 @@ public class PostManager {
             addPostModel.setApiError(ApiError.getError(ApiErrorMessage.NEWPOST_IMAGE_INCORRECT));
         }
 
-        postRepository.addPost(user, image, description);
+        PostDAL postDAL = postRepository.addPost(user, image, description);
+
+        Post post = convertPostDALToPost(postDAL);
+
+        addPostModel.setPost(post);
 
         return addPostModel;
     }

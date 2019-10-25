@@ -131,7 +131,7 @@ public class PostLocalData implements PostContext {
     }
 
     @Override
-    public void addPost(User user, String image, String description) {
+    public PostDAL addPost(User user, String image, String description) {
         PostDAL newPost = new PostDAL(
                 UUID.randomUUID(),
                 description,
@@ -142,5 +142,7 @@ public class PostLocalData implements PostContext {
         );
 
         posts.add(newPost);
+
+        return newPost;
     }
 }

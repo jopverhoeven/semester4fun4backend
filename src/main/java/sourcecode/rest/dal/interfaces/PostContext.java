@@ -22,5 +22,5 @@ public interface PostContext {
 
     List<UUID> getLikes(UUID postId);
 
-    void addPost(User user, String image, String description);
+    PostDAL addPost(User user, String image, String description);
 }

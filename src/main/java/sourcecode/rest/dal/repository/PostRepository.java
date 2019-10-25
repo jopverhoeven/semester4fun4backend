@@ -39,7 +39,7 @@ public class PostRepository {
         postContext.removeLike(postId, userId);
     }
 
-    public void addPost(User user, String image, String description) {
-        postContext.addPost(user, image, description);
+    public PostDAL addPost(User user, String image, String description) {
+        return postContext.addPost(user, image, description);
     }
 }

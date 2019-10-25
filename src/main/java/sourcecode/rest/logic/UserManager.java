@@ -1,5 +1,7 @@
 package sourcecode.rest.logic;
 
+import sourcecode.models.other.error.ApiError;
+import sourcecode.models.other.error.ApiErrorMessage;
 import sourcecode.models.other.user.User;
 import sourcecode.rest.dal.repository.UserRepository;
 
@@ -43,7 +45,18 @@ public class UserManager {
         return userRepository.addUser(username, firstname, lastname, profileImage);
     }
 
-    public void updateUserGeneral(User user, String firstname, String lastname) {
+    public ApiError updateUserGeneral(User user, String firstname, String lastname) {
+
+        if (firstname.isEmpty() || firstname.length() <= 0) {
+            return ApiError.getError(ApiErrorMessage.MODEL_INCORRECT);
+        }
+
+        if (lastname.isEmpty() || lastname.length() <= 0) {
+            return ApiError.getError(ApiErrorMessage.MODEL_INCORRECT);
+        }
+
         userRepository.updateUserGeneral(user.getUserId(), firstname, lastname);
+
+        return null;
     }
 }
