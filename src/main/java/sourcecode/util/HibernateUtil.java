@@ -2,6 +2,7 @@ package sourcecode.util;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -43,6 +44,54 @@ public class HibernateUtil {
     public static void shutdown() {
         if (registry != null) {
             StandardServiceRegistryBuilder.destroy(registry);
+        }
+    }
+
+    public static void save(Object object) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            transaction = session.beginTransaction();
+            session.save(object);
+
+            transaction.commit();
+        }catch(Exception e){
+            if (transaction != null){
+                transaction.rollback();
+            }
+
+            e.printStackTrace();
+        }
+    }
+
+    public static void delete(Object object) {
+        Transaction transaction = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            transaction = session.beginTransaction();
+            session.delete(object);
+
+            transaction.commit();
+        }catch(Exception e){
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public static void update(Object object) {
+        Transaction transaction = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            transaction = session.beginTransaction();
+            session.update(object);
+
+            transaction.commit();
+        }catch(Exception e){
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
     }
 }

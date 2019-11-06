@@ -1,16 +1,32 @@
 package sourcecode.models.dal.profile;
 
+import org.hibernate.annotations.Type;
 import sourcecode.models.other.profile.Privacy;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Table(name = "PROFILE")
 public class ProfileDAL {
 
+    @Id
+    @Type(type = "uuid-char")
+    @Column(name = "PROFILE_ID", length = 36)
     private UUID profileId;
+
+    @Type(type = "uuid-char")
+    @Column(name="USER_ID", length = 36)
     private UUID userId;
-    private Privacy profilePrivacy;
+
+    @Transient
+    private Privacy profilePrivacy = new Privacy(true);
+
+    @Column(name = "PROFILE_STATUS")
     private String profileStatus;
+
+    @Transient
     private List<UUID> followerIds;
 
     public ProfileDAL(){}
@@ -23,6 +39,12 @@ public class ProfileDAL {
         setProfilePrivacy(privacy);
     }
 
+    public ProfileDAL(UUID profileId, UUID userId, String profileStatus, List<UUID> followerIds){
+        this.profileStatus = profileStatus;
+        this.followerIds = followerIds;
+        setProfileId(profileId);
+        setUserId(userId);
+    }
 
     public UUID getProfileId() {
         return profileId;

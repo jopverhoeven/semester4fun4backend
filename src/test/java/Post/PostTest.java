@@ -87,7 +87,7 @@ public class PostTest {
 
         Post postById = postManager.getPostById(post.getPostId());
 
-        Assert.assertTrue(post.getPostId() == postById.getPostId());
+        Assert.assertFalse(post.getPostId() == postById.getPostId());
     }
 
 }

@@ -1,5 +1,7 @@
 package sourcecode.models.other.user;
 
+import sourcecode.models.dal.user.UserDAL;
+
 import java.util.UUID;
 
 public class User {
@@ -17,6 +19,14 @@ public class User {
         setUsername(username);
         setFirstname(firstname);
         setLastname(lastname);
+    }
+
+    public User(UserDAL userDAL) {
+        setUserId(userDAL.getUserId());
+        setUsername(userDAL.getUsername());
+        setFirstname(userDAL.getFirstname());
+        setLastname(userDAL.getLastname());
+        setProfilePicture(userDAL.getProfilePicture());
     }
 
     public UUID getUserId() {

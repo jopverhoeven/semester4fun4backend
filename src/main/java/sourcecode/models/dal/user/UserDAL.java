@@ -1,16 +1,17 @@
 package sourcecode.models.dal.user;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class UserDAL {
 
     @Id
+    @GeneratedValue
+    @Type(type = "uuid-char")
     @Column(name = "UserId")
     private UUID userId;
 

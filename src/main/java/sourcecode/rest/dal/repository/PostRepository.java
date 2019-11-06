@@ -2,7 +2,7 @@ package sourcecode.rest.dal.repository;
 
 import sourcecode.models.dal.post.PostDAL;
 import sourcecode.models.other.user.User;
-import sourcecode.rest.dal.data.post.PostLocalData;
+import sourcecode.rest.dal.data.post.PostRemoteData;
 import sourcecode.rest.dal.interfaces.PostContext;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class PostRepository {
 
-    private static PostContext postContext = new PostLocalData();
+    private static PostContext postContext = new PostRemoteData();
 
     public PostRepository() {}
     public PostRepository(PostContext postContext) {

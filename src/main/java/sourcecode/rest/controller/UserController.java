@@ -29,7 +29,7 @@ public class UserController {
         User user = userManager.getUser(id);
 
         if (user == null)
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return RestApi.getResponseWithEntity(Response.Status.BAD_REQUEST, ApiError.getError(ApiErrorMessage.USER_NOT_FOUND));
         else {
             return Response.ok().entity(objectMapper.writeValueAsString(user)).build();
         }

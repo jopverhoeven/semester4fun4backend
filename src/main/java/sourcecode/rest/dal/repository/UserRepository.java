@@ -1,7 +1,7 @@
 package sourcecode.rest.dal.repository;
 
 import sourcecode.models.other.user.User;
-import sourcecode.rest.dal.data.user.UserLocalData;
+import sourcecode.rest.dal.data.user.UserRemoteData;
 import sourcecode.rest.dal.interfaces.UserContext;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class UserRepository {
 
-    private static UserContext userContext = new UserLocalData();
+    private static UserContext userContext = new UserRemoteData();
 
     public UserRepository() {}
 

@@ -10,7 +10,6 @@ import java.util.UUID;
 public class LikeDAL {
 
     @Id
-    @GeneratedValue
     @Type(type = "uuid-char")
     @Column(name = "postId", length = 36)
     private UUID postId;
