@@ -11,6 +11,11 @@ public class CommentRepository {
 
     private static CommentContext commentContext = new CommentRemoteData();
 
+    public CommentRepository() {}
+    public CommentRepository(CommentContext commentContext) {
+        CommentRepository.commentContext = commentContext;
+    }
+
     public List<CommentDAL> getCommentByPostId(UUID postId){
         return commentContext.getCommentsByPostId(postId);
     }

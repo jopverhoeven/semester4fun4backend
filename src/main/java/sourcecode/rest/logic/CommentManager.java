@@ -20,6 +20,12 @@ public class CommentManager {
     private static UserManager userManager = new UserManager();
     private static PostManager postManager = new PostManager();
 
+    public CommentManager() {}
+    public CommentManager(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
+
+
     public List<Comment> getCommentsByPostId(UUID postId){
         List<CommentDAL> comments = commentRepository.getCommentByPostId(postId);
         List<Comment> returnComments = new ArrayList<>();
