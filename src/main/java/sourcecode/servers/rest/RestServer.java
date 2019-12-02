@@ -21,13 +21,13 @@ public class RestServer {
     public Server getConfiguredRestServer(){
         ResourceConfig resourceConfig = createResourceConfig();
         ServletHolder servlet = new ServletHolder(new ServletContainer(resourceConfig));
-        Server server = new Server();
+        Server server = new Server(8090);
 
-        try {
-            configureHTTPS(server, 8090);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            configureHTTPS(server, 8090);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         ServletContextHandler context = new ServletContextHandler(server, "/*");
         context.addServlet(servlet, "/*");
