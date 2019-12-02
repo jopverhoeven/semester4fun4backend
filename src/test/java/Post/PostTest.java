@@ -81,7 +81,7 @@ public class PostTest {
     public void getPostById() {
         commentRepository = new CommentRepository(new CommentLocalData());
         commentManager = new CommentManager(commentRepository);
-        
+
         postRepository = new PostRepository(new PostLocalData());
         postManager = new PostManager(postRepository);
 

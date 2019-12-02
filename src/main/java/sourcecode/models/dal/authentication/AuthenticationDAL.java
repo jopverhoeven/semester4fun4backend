@@ -2,6 +2,7 @@ package sourcecode.models.dal.authentication;
 
 import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,7 +14,10 @@ public class AuthenticationDAL {
 
     @Id
     @Type(type = "uuid-char")
+    @Column(name = "USER_ID", length = 36)
     private UUID userId;
+
+    @Column(name = "PASSWORD")
     private String password;
 
     public AuthenticationDAL() {}

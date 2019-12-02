@@ -1,5 +1,6 @@
 package sourcecode.rest.logic;
 
+import com.google.common.hash.Hashing;
 import sourcecode.models.manager.authentication.AuthenticationModel;
 import sourcecode.models.manager.authentication.RegisterModel;
 import sourcecode.models.other.error.ApiError;
@@ -8,6 +9,7 @@ import sourcecode.models.other.user.User;
 import sourcecode.rest.dal.repository.authentication.AuthenticationRepository;
 import sourcecode.rest.dal.repository.authentication.TokenRepository;
 
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class AuthenticationManager {
@@ -18,6 +20,7 @@ public class AuthenticationManager {
     private ProfileManager profileManager = new ProfileManager();
 
     public AuthenticationModel login(String username, String password){
+        String encryptedPassword = encryptPassword(password);
 
         User user = userManager.getUserByUsername(username);
 
@@ -27,7 +30,8 @@ public class AuthenticationManager {
 
         UUID userId = user.getUserId();
 
-        boolean loginSuccessful = authRepo.login(userId, password);
+
+        boolean loginSuccessful = authRepo.login(userId, encryptedPassword);
 
         if (loginSuccessful == false){
             return new AuthenticationModel(null, ApiError.getError(ApiErrorMessage.PASS_INCORRECT));
@@ -36,7 +40,12 @@ public class AuthenticationManager {
         UUID loginToken = tokenRepository.addNewUser(userId);
 
         return new AuthenticationModel(loginToken);
+    }
 
+    private String encryptPassword(String password) {
+        String sha256 = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+
+        return sha256;
     }
 
     public User loginWithToken(UUID token){
@@ -52,6 +61,8 @@ public class AuthenticationManager {
     }
 
     public RegisterModel register(String username, String firstname, String lastname, String profileImage, String password){
+        String encryptedPassword = encryptPassword(password);
+
         RegisterModel registerModel = new RegisterModel();
 
         User inUse = userManager.getUserByUsername(username);
@@ -67,7 +78,7 @@ public class AuthenticationManager {
         }
 
         User user = userManager.addUser(username, firstname, lastname, profileImage);
-        authRepo.register(user.getUserId(), password);
+        authRepo.register(user.getUserId(), encryptedPassword);
         profileManager.addProfile(user.getUserId());
 
         return registerModel;
