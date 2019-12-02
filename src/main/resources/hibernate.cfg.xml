@@ -5,9 +5,9 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://studmysql01.fhict.local/dbi407458?useSSL=false</property>
-        <property name="connection.username">dbi407458</property>
-        <property name="connection.password">semester4fun4sqldatabase</property>
+        <property name="connection.url">jdbc:mysql://84.81.86.11/FonstaGram</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">210798</property>
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">10</property>
         <!-- Select our SQL dialect -->

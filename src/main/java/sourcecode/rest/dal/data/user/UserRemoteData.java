@@ -68,7 +68,7 @@ public class UserRemoteData implements UserContext {
 
     @Override
     public User addUser(String username, String firstname, String lastname, String profileImage) {
-        UserDAL userDAL = new UserDAL(UUID.randomUUID(), username, firstname, lastname, profileImage);
+        UserDAL userDAL = new UserDAL(UUID.randomUUID(), firstname, lastname, username, profileImage);
 
         HibernateUtil.save(userDAL);
 
