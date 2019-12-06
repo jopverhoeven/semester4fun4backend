@@ -21,7 +21,7 @@ public class RestServer {
     public Server getConfiguredRestServer(){
         ResourceConfig resourceConfig = createResourceConfig();
         ServletHolder servlet = new ServletHolder(new ServletContainer(resourceConfig));
-        Server server = new Server(8090);
+        Server server = new Server(Integer.valueOf(System.getenv("PORT")));
 
 //        try {
 //            configureHTTPS(server, 8090);
