@@ -1,6 +1,7 @@
 package sourcecode.rest.dal.data.post;
 
 import sourcecode.models.dal.post.PostDAL;
+import sourcecode.models.dal.post.PostNoImageDAL;
 import sourcecode.models.other.user.User;
 import sourcecode.rest.dal.interfaces.PostContext;
 
@@ -99,6 +100,11 @@ public class PostLocalData implements PostContext {
     }
 
     @Override
+    public List<PostNoImageDAL> getPostsNoImage() {
+        return null;
+    }
+
+    @Override
     public boolean hasLiked(UUID postId, UUID userId) {
         PostDAL post = getPostById(postId);
 
@@ -144,5 +150,10 @@ public class PostLocalData implements PostContext {
         posts.add(newPost);
 
         return newPost;
+    }
+
+    @Override
+    public PostNoImageDAL getPostByIdNoImage(UUID postId) {
+        return null;
     }
 }

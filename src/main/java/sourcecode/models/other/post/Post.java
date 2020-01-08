@@ -28,6 +28,15 @@ public class Post implements Comparable<Post>{
         setPostDate(postDate);
     }
 
+    public Post(UUID postId, String postDescription, User postUser, List<Comment> postComments, List<User> userLikes, Date postDate) {
+        setPostId(postId);
+        setPostDescription(postDescription);
+        setPostUser(postUser);
+        setComments(postComments);
+        setLikes(userLikes);
+        setPostDate(postDate);
+    }
+
     public UUID getPostId() {
         return postId;
     }

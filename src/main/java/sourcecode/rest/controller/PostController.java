@@ -83,6 +83,28 @@ public class PostController {
         return Response.ok().entity(objectMapper.writeValueAsString(posts)).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("sorted/date/noimage")
+    public Response getPostsSortedByDateNoImage() throws IOException {
+        List<Post> posts = postManager.getPostsSortedByDateNoImage();
+        return Response.ok().entity(objectMapper.writeValueAsString(posts)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("id/{id}/image")
+    public Response getPostImage(@PathParam("id") UUID postId) throws IOException {
+
+        Post post = postManager.getPostById(postId);
+
+        if (post == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        return Response.ok().entity(objectMapper.writeValueAsString(post.getImageContent())).build();
+    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("like")

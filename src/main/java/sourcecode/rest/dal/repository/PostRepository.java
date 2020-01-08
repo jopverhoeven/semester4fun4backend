@@ -1,6 +1,7 @@
 package sourcecode.rest.dal.repository;
 
 import sourcecode.models.dal.post.PostDAL;
+import sourcecode.models.dal.post.PostNoImageDAL;
 import sourcecode.models.other.user.User;
 import sourcecode.rest.dal.data.post.PostRemoteData;
 import sourcecode.rest.dal.interfaces.PostContext;
@@ -20,8 +21,15 @@ public class PostRepository {
     public PostDAL getPostById(UUID postId){
         return postContext.getPostById(postId);
     }
+
+    public PostNoImageDAL getPostByIdNoImage(UUID postId) {
+        return postContext.getPostByIdNoImage(postId);
+    }
+
     public List<PostDAL> getPostsFromUser(UUID userId){ return postContext.getPostFromUser(userId, 0, 0); }
     public List<PostDAL> getPosts(){return postContext.getPosts(); }
+
+    public List<PostNoImageDAL> getPostsNoImage(){ return postContext.getPostsNoImage(); }
 
     public List<UUID> getLikes(UUID postId){
         return postContext.getLikes(postId);

@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import sourcecode.models.dal.post.LikeDAL;
 import sourcecode.models.dal.post.PostDAL;
+import sourcecode.models.dal.post.PostNoImageDAL;
 import sourcecode.models.other.user.User;
 import sourcecode.rest.dal.interfaces.PostContext;
 import sourcecode.util.HibernateUtil;
@@ -24,6 +25,25 @@ public class PostRemoteData implements PostContext {
             query.setParameter("postId", postId);
 
             postDAL = (PostDAL) query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        addLikesToPost(postDAL);
+
+        return postDAL;
+    }
+
+
+    @Override
+    public PostNoImageDAL getPostByIdNoImage(UUID postId) {
+        PostNoImageDAL postDAL = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query query = session.createQuery("from PostNoImageDAL where postId = :postId");
+            query.setParameter("postId", postId);
+
+            postDAL = (PostNoImageDAL) query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,7 +87,22 @@ public class PostRemoteData implements PostContext {
             e.printStackTrace();
         }
 
+        return postDALS;
+    }
 
+    @Override
+    public List<PostNoImageDAL> getPostsNoImage() {
+        List<PostNoImageDAL> postDALS = new ArrayList<>();
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            postDALS = session.createQuery("from PostNoImageDAL", PostNoImageDAL.class).list();
+
+            for (PostNoImageDAL post : postDALS) {
+                addLikesToPost(post);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return postDALS;
     }
@@ -108,7 +143,23 @@ public class PostRemoteData implements PostContext {
         return post;
     }
 
+
     private void addLikesToPost(PostDAL postDAL) {
+        List<LikeDAL> likeDALS = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query query = session.createQuery("from LikeDAL where postId = :postId");
+            query.setParameter("postId", postDAL.getPostId());
+
+            likeDALS = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        postDAL.addLikes(likeDALS);
+    }
+
+    private void addLikesToPost(PostNoImageDAL postDAL) {
         List<LikeDAL> likeDALS = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

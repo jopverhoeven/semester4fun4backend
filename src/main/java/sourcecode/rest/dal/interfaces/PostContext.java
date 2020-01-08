@@ -1,6 +1,7 @@
 package sourcecode.rest.dal.interfaces;
 
 import sourcecode.models.dal.post.PostDAL;
+import sourcecode.models.dal.post.PostNoImageDAL;
 import sourcecode.models.other.user.User;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public interface PostContext {
 
     List<PostDAL> getPosts();
 
+    List<PostNoImageDAL> getPostsNoImage();
+
     boolean hasLiked(UUID postId, UUID userId);
 
     void addLike(UUID postId, UUID userId);
@@ -23,4 +26,6 @@ public interface PostContext {
     List<UUID> getLikes(UUID postId);
 
     PostDAL addPost(User user, String image, String description);
+
+    PostNoImageDAL getPostByIdNoImage(UUID postId);
 }
