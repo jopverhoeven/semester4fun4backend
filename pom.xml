@@ -17,7 +17,7 @@
         <jetty-server.version>9.4.7.v20170914</jetty-server.version>
         <jersey-server.version>2.7</jersey-server.version>
         <junit-jupiter-api.version>5.3.2</junit-jupiter-api.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
 
 
     </properties>
